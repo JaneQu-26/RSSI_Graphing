@@ -5,19 +5,20 @@ import numpy as np
 
 x = input("which file should be look at?")
 filename = "bledoubt_log_" + x + ".json"
-
-with open(filename, "r") as f:
+def openfile():
+    with open(filename, "r") as f:
         data = json.load(f)
-with open("gt_macs.json", "r") as f:
+    with open("gt_macs.json", "r") as f:
         datasus = json.load(f)
-setsus = datasus[filename]
+    setsus = datasus[filename]
+    return data, setsus
 
 
 def make_rssi():
     mac = []
     rssi = []
     time = []
-    
+    data, setsus = openfile()
     detection = data['detections']
         
     for entry in detection:
@@ -57,6 +58,7 @@ def findsus():
     macsafe = []
     rssisafe = []
     timesafe = []
+    data, setsus = openfile()
     fmac, arssi, atime = sort()
     for i in fmac:
         idx = fmac.index(i)

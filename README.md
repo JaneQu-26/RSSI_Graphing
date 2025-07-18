@@ -18,7 +18,7 @@ pip install numpy
 
 ## Running the simulation
 ```
-python3 main.py
+python3 Final.py
 
 
 which file should be look at? [letterofdatafile]
