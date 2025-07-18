@@ -27,7 +27,7 @@ def make_rssi():
 
         timestamp_str = entry['t']
         timestamp_str_clean = " ".join(timestamp_str.split()[:-2] + [timestamp_str.split()[-1]])
-        timestamp = datetime.strptime(timestamp_str_clean, "%a %B %d %H:%M:%S %Y")
+        timestamp = datetime.strptime(timestamp_str_clean, "%a %b %d %H:%M:%S %Y")
 
         time.append(timestamp)
     return mac, rssi, time
