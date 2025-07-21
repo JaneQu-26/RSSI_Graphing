@@ -85,7 +85,7 @@ def main():
     plt.figure(figsize=(12, 6))
     plt.xticks(rotation=45)
     
-    plt.plot(timesafe[0], rssisafe[0], color="blue", label=("Safe Device", len(macsafe)))
+    plt.plot(timesafe[0], rssisafe[0], color="blue", label=("Safe Device",len(macsafe)))
     plt.plot(timesus[0], rssisus[0], color="red", label=("Suspicious Device", len(macsus)))
     
     for i in range(len(macsafe)):
