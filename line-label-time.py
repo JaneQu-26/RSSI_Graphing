@@ -48,7 +48,6 @@ def sort():
         arssi.append(r)
         atime.append(t)
 
-
     return fmac, arssi, atime
          
 
@@ -74,6 +73,7 @@ def findsus():
 
     return macsus, rssisus, timesus, macsafe, rssisafe, timesafe
     
+#function to assess if each device is detected for a significant time 60sec(adjustable)
 def findtime():
     labelsafe = []
     labelsus = []
@@ -123,15 +123,14 @@ def main():
         timesafe_paired, rssisafe_paired = zip(*sorted_pairs)
         plt.plot(timesafe_paired, rssisafe_paired, color="lightskyblue")
     
-
-
+#the colors were changed to be a lighter verson of the original colors
     for i in range(len(macsus)):
         sorted_pairs = sorted(zip(timesus[i], rssisus[i]), key=lambda x: x[0])
         timesus_paired, rssisus_paired = zip(*sorted_pairs)
 
         plt.plot(timesus_paired, rssisus_paired, color="tomato")
     
-    
+# specially plot significant devices with bold color
     for i in range(len(labelsafe)):
         sorted_pairs = sorted(zip(labelsafe_t[i], labelsafe_r[i]), key=lambda x: x[0])
         timesafe_paired, rssisafe_paired = zip(*sorted_pairs)

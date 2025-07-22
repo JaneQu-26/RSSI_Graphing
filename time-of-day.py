@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import numpy as np
 
-
+#this code allows more then one file to be loaded
 a = input("which file should be look at?")
 filename1 = "bledoubt_log_" + a + ".json"
 b = input("which file should be look at?")
@@ -24,7 +24,7 @@ def openfile():
     setsus3 = datasus[filename3]
     return data1, data2, data3, setsus1, setsus2, setsus3
 
-
+#note: change function to takes in variable
 def make_rssi(data):
     mac = []
     rssi = []
@@ -41,9 +41,10 @@ def make_rssi(data):
         timestamp = datetime.strptime(timestamp_str_clean, "%H:%M:%S")
         time.append(timestamp)
 
-    print(time)
     return mac, rssi, time
 
+
+#note: change function to takes in variable
 def sort(mac, rssi, time):
     
     fmac = list(set(mac))
@@ -59,10 +60,9 @@ def sort(mac, rssi, time):
         arssi.append(r)
         atime.append(t)
 
-
     return fmac, arssi, atime
          
-
+#note: change function to takes in variable
 def findsus(setsus, fmac, arssi, atime):
     macsus = []
     rssisus = []
@@ -85,6 +85,8 @@ def findsus(setsus, fmac, arssi, atime):
 
     return macsus, rssisus, timesus
     
+#note: change function to takes in variable
+# new plot function to simplify main()    
 def plot(data, setsus, color1):
     mac, rssi, time = make_rssi(data)
     fmac, arssi, atime = sort(mac, rssi, time)
@@ -109,13 +111,15 @@ def main():
     plt.title('RSSI Strength from Two Files')
     plt.xlabel('Time')
     plt.ylabel('RSSI')
-
+#note: change the input for different datafiles
     plot(data1, setsus1, "blue")
     plot(data2, setsus2, "indigo")
     plot(data3, setsus3, "purple")
+
     plt.legend()
     plt.tight_layout()
     plt.show()
+    
 if __name__ == "__main__":
     main()
 
