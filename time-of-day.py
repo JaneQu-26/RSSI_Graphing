@@ -91,8 +91,6 @@ def plot(data, setsus, color1):
     mac, rssi, time = make_rssi(data)
     fmac, arssi, atime = sort(mac, rssi, time)
     macsus, rssisus, timesus, = findsus(setsus, fmac, arssi, atime)
-    
-    
 
     plt.plot(timesus[0], rssisus[0], color=color1, label=("Suspicious Devices", len(macsus)))
 
@@ -108,7 +106,7 @@ def main():
 
     plt.figure(figsize=(12, 6))
     plt.xticks(rotation=45)
-    plt.title('RSSI Strength from Two Files')
+    plt.title('RSSI Strength from Three Files')
     plt.xlabel('Time')
     plt.ylabel('RSSI')
 #note: change the input for different datafiles
