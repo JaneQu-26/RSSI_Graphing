@@ -2,24 +2,25 @@ import json
 import matplotlib.pyplot as plt
 from datetime import datetime
 import numpy as np
+import sys
 
 #change filename to the desired file
 #importing data into dictionaries
-def openfile():
-    with open("bledoubt_log_c.json", "r") as f:
+def openfile(filename):
+    with open(filename, "r") as f:
         data = json.load(f)
     with open("gt_macs.json", "r") as f:
         datasus = json.load(f)
     #list of suspicious devices
-    setsus = datasus["bledoubt_log_c.json"]
+    setsus = datasus[filename]
     return data, setsus
 
 #function to pick out desiered information(mac address, RSSI value, time)
-def make_rssi():
+def make_rssi(filename):
     mac = []
     rssi = []
     time = []
-    data, setsus = openfile()
+    data, setsus = openfile(filename)
     detection = data['detections']
         
     for entry in detection:
@@ -37,8 +38,8 @@ def make_rssi():
     return mac, rssi, time
 
 #function to make all detections into each unique mac address with RSSI and time stored as a list of lists
-def sort():
-    mac, rssi, time = make_rssi()
+def sort(filename):
+    mac, rssi, time = make_rssi(filename)
     fmac = list(set(mac))
     arssi = []
     atime = []
@@ -56,15 +57,15 @@ def sort():
          
 
 #filtering the suspicious devices
-def findsus():
+def findsus(filename):
     macsus = []
     rssisus = []
     timesus = []
     macsafe = []
     rssisafe = []
     timesafe = []
-    data, setsus = openfile()
-    fmac, arssi, atime = sort()
+    data, setsus = openfile(filename)
+    fmac, arssi, atime = sort(filename)
     for i in fmac:
         idx = fmac.index(i)
         if i in setsus:
@@ -79,13 +80,13 @@ def findsus():
     return macsus, rssisus, timesus, macsafe, rssisafe, timesafe
     
 
-
-
-
 def main():
-    macsus, rssisus, timesus, macsafe, rssisafe, timesafe = findsus()
+    if len(sys.argv) < 2:
+        print("Usage: python3 Final.py <filename>")
+        return
+    filename = sys.argv[1]
+    macsus, rssisus, timesus, macsafe, rssisafe, timesafe = findsus(filename)
 
-    
     plt.figure(figsize=(12, 6))
     plt.xticks(rotation=45)
 
@@ -106,7 +107,7 @@ def main():
         plt.plot(timesus_paired, rssisus_paired, color="red")
 
     plt.legend()
-    plt.title('RSSI Strength for filebledoubt_log_c.json')
+    plt.title(f'RSSI Strength for file {filename}')
     plt.xlabel('Time')
     plt.ylabel('RSSI')
     plt.show()
