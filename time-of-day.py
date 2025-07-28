@@ -2,16 +2,9 @@ import json
 import matplotlib.pyplot as plt
 from datetime import datetime
 import numpy as np
+import sys
 
-#this code allows more then one file to be loaded
-print("Pick three files with a name from a to n alphabetically")
-a = input("which file should be look at?")
-filename1 = "bledoubt_log_" + a + ".json"
-b = input("which file should be look at?")
-filename2 = "bledoubt_log_" + b + ".json"
-c = input("which file should be look at?")
-filename3 = "bledoubt_log_" + c + ".json"
-def openfile():
+def openfile(filename1, filename2, filename3):
     with open(filename1, "r") as f:
         data1 = json.load(f)
     with open(filename2, "r") as d:
@@ -103,14 +96,19 @@ def plot(data, setsus, color1):
 
 
 def main():
-    data1, data2, data3, setsus1, setsus2, setsus3 = openfile()
+    if len(sys.argv) < 4:
+        print("Usage: python3 time-of-day.py <file1> <file2> <file3>")
+        return
+    filename1 = sys.argv[1]
+    filename2 = sys.argv[2]
+    filename3 = sys.argv[3]
+    data1, data2, data3, setsus1, setsus2, setsus3 = openfile(filename1, filename2, filename3)
 
     plt.figure(figsize=(12, 6))
     plt.xticks(rotation=45)
     plt.title('RSSI Strength from Three Files')
     plt.xlabel('Time')
     plt.ylabel('RSSI')
-#note: change the input for different datafiles
     plot(data1, setsus1, "blue")
     plot(data2, setsus2, "indigo")
     plot(data3, setsus3, "purple")

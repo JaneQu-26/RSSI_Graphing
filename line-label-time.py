@@ -2,11 +2,9 @@ import json
 import matplotlib.pyplot as plt
 from datetime import datetime
 import numpy as np
+import sys
 
-print("Pick a file with name from a to n alphabetically")
-x = input("which file should be look at?")
-filename = "bledoubt_log_" + x + ".json"
-def openfile():
+def openfile(filename):
     with open(filename, "r") as f:
         data = json.load(f)
     with open("gt_macs.json", "r") as f:
@@ -15,11 +13,11 @@ def openfile():
     return data, setsus
 
 
-def make_rssi():
+def make_rssi(filename):
     mac = []
     rssi = []
     time = []
-    data, setsus = openfile()
+    data, setsus = openfile(filename)
     detection = data['detections']
         
     for entry in detection:
@@ -33,8 +31,8 @@ def make_rssi():
         time.append(timestamp)
     return mac, rssi, time
 
-def sort():
-    mac, rssi, time = make_rssi()
+def sort(filename):
+    mac, rssi, time = make_rssi(filename)
     fmac = list(set(mac))
     arssi = []
     atime = []
@@ -51,15 +49,15 @@ def sort():
     return fmac, arssi, atime
          
 
-def findsus():
+def findsus(filename):
     macsus = []
     rssisus = []
     timesus = []
     macsafe = []
     rssisafe = []
     timesafe = []
-    data, setsus = openfile()
-    fmac, arssi, atime = sort()
+    data, setsus = openfile(filename)
+    fmac, arssi, atime = sort(filename)
     for i in fmac:
         idx = fmac.index(i)
         if i in setsus:
@@ -74,14 +72,14 @@ def findsus():
     return macsus, rssisus, timesus, macsafe, rssisafe, timesafe
     
 #function to assess if each device is detected for a significant time 60sec(adjustable)
-def findtime():
+def findtime(filename):
     labelsafe = []
     labelsus = []
     labelsafe_r = []
     labelsus_r = []
     labelsafe_t = []
     labelsus_t = []
-    macsus, rssisus, timesus, macsafe, rssisafe, timesafe = findsus()
+    macsus, rssisus, timesus, macsafe, rssisafe, timesafe = findsus(filename)
 
     for a in macsafe:
         idx = macsafe.index(a)
@@ -101,15 +99,15 @@ def findtime():
             next
 
     return(labelsus, labelsus_r, labelsus_t, labelsafe, labelsafe_r, labelsafe_t)
-    
-
-    
-
 
 
 def main():
-    macsus, rssisus, timesus, macsafe, rssisafe, timesafe = findsus()
-    labelsus, labelsus_r, labelsus_t, labelsafe, labelsafe_r, labelsafe_t = findtime()
+    if len(sys.argv) < 2:
+        print("Usage: python3 line-label-time.py <filename>")
+        return
+    filename = sys.argv[1]
+    macsus, rssisus, timesus, macsafe, rssisafe, timesafe = findsus(filename)
+    labelsus, labelsus_r, labelsus_t, labelsafe, labelsafe_r, labelsafe_t = findtime(filename)
     
     plt.figure(figsize=(12, 6))
     plt.xticks(rotation=45)
@@ -117,9 +115,7 @@ def main():
     plt.plot(timesafe[0], rssisafe[0], color="blue", label="Safe Device")
     plt.plot(timesus[0], rssisus[0], color="red", label="Suspicious Device")
     
-
-    
-#the colors were changed to be a lighter verson of the original colors
+    #the colors were changed to be a lighter verson of the original colors
     for i in range(len(macsafe)):
         sorted_pairs = sorted(zip(timesafe[i], rssisafe[i]), key=lambda x: x[0])
         timesafe_paired, rssisafe_paired = zip(*sorted_pairs)
@@ -132,7 +128,7 @@ def main():
         plt.plot(timesus_paired, rssisus_paired, color="tomato")
         
 
-# specially plot significant devices with bold color
+    # specially plot significant devices with bold color
     for i in range(len(labelsafe)):
         sorted_pairs = sorted(zip(labelsafe_t[i], labelsafe_r[i]), key=lambda x: x[0])
         timesafe_paired, rssisafe_paired = zip(*sorted_pairs)
