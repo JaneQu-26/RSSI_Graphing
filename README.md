@@ -12,7 +12,7 @@ git clone git@github.com:JaneQu-26/RSSI_Graphing.git
 ```
 sudo apt install python3
 
-pip install numpy
+
 
 ```
 
