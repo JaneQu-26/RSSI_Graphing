@@ -17,9 +17,9 @@ pip install numpy
 ```
 
 ## Running the simulation
+change FILENAME to the data file name e.g. bledoubt_log_a.json
+
 ```
-python3 Final.py
+python3 Final.py FILENAME
 
-
-which file should be look at? [letterofdatafile]
 ```
