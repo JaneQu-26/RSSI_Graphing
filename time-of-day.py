@@ -4,6 +4,7 @@ from datetime import datetime
 import numpy as np
 
 #this code allows more then one file to be loaded
+print("Pick three files with a name from a to n alphabetically")
 a = input("which file should be look at?")
 filename1 = "bledoubt_log_" + a + ".json"
 b = input("which file should be look at?")

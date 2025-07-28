@@ -3,18 +3,15 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import numpy as np
 
-#making file choice
-x = input("which file should be look at?")
-y = input("file with known suspicious devices:")
-
+#change filename to the desired file
 #importing data into dictionaries
 def openfile():
-    with open(x, "r") as f:
+    with open("bledoubt_log_c.json", "r") as f:
         data = json.load(f)
-    with open(y, "r") as f:
+    with open("gt_macs.json", "r") as f:
         datasus = json.load(f)
     #list of suspicious devices
-    setsus = datasus[x]
+    setsus = datasus["bledoubt_log_c.json"]
     return data, setsus
 
 #function to pick out desiered information(mac address, RSSI value, time)
@@ -109,7 +106,7 @@ def main():
         plt.plot(timesus_paired, rssisus_paired, color="red")
 
     plt.legend()
-    plt.title('RSSI Strength for file '+x)
+    plt.title('RSSI Strength for filebledoubt_log_c.json')
     plt.xlabel('Time')
     plt.ylabel('RSSI')
     plt.show()

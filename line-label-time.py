@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import numpy as np
 
-
+print("Pick a file with name from a to n alphabetically")
 x = input("which file should be look at?")
 filename = "bledoubt_log_" + x + ".json"
 def openfile():
