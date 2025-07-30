@@ -31,10 +31,11 @@ def make_rssi(data):
         rssi.append(entry['rssi'])
 
         timestamp_str = entry['t']
-        timestamp_str_clean = timestamp_str[11:-10]
+        timestamp_str_clean = timestamp_str[11:19]
         timestamp = datetime.strptime(timestamp_str_clean, "%H:%M:%S")
-        time.append(timestamp)
 
+        time.append(timestamp)
+    print(time)
     return mac, rssi, time
 
 
@@ -104,6 +105,7 @@ def main():
     filename3 = sys.argv[3]
     data1, data2, data3, setsus1, setsus2, setsus3 = openfile(filename1, filename2, filename3)
 
+    plt.rc('legend',fontsize=15)
     plt.figure(figsize=(12, 6))
     plt.xticks(rotation=45)
     plt.title('RSSI Strength from Three Files')

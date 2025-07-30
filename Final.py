@@ -87,6 +87,7 @@ def main():
     filename = sys.argv[1]
     macsus, rssisus, timesus, macsafe, rssisafe, timesafe = findsus(filename)
 
+    plt.rc('legend',fontsize=15)
     plt.figure(figsize=(12, 6))
     plt.xticks(rotation=45)
 

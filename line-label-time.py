@@ -109,6 +109,7 @@ def main():
     macsus, rssisus, timesus, macsafe, rssisafe, timesafe = findsus(filename)
     labelsus, labelsus_r, labelsus_t, labelsafe, labelsafe_r, labelsafe_t = findtime(filename)
     
+    plt.rc('legend',fontsize=15)
     plt.figure(figsize=(12, 6))
     plt.xticks(rotation=45)
     
