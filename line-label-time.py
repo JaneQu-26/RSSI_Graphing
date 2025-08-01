@@ -113,9 +113,11 @@ def main():
     plt.figure(figsize=(12, 6))
     plt.xticks(rotation=45)
     
-    plt.plot(timesafe[0], rssisafe[0], color="blue", label="Safe Device")
-    plt.plot(timesus[0], rssisus[0], color="red", label="Suspicious Device")
-    
+    plt.plot(timesafe[0], rssisafe[0], color="blue", label="Long detection Safe Device")
+    plt.plot(timesus[0], rssisus[0], color="red", label="Long detection Suspicious Device")
+    plt.plot(timesafe[0], rssisafe[0], color="lightskyblue", label="Safe Device")
+    plt.plot(timesus[0], rssisus[0], color="tomato", label="Suspicious Device")
+
     #the colors were changed to be a lighter verson of the original colors
     for i in range(len(macsafe)):
         sorted_pairs = sorted(zip(timesafe[i], rssisafe[i]), key=lambda x: x[0])
@@ -125,7 +127,6 @@ def main():
     for i in range(len(macsus)):
         sorted_pairs = sorted(zip(timesus[i], rssisus[i]), key=lambda x: x[0])
         timesus_paired, rssisus_paired = zip(*sorted_pairs)
-
         plt.plot(timesus_paired, rssisus_paired, color="tomato")
         
 

@@ -41,20 +41,24 @@ def make_rssi(data):
 
 #note: change function to takes in variable
 def sort(mac, rssi, time):
-    
+    #list of unique mac addresses
     fmac = list(set(mac))
+    #new lists to store RSSI and time as a list in list 
+    #for each unique mac address
     arssi = []
     atime = []
+    #loop through each unique mac address to get RSSI and time
+    #at very repeating id
     for i in fmac:
         r = []
         t = []
+    #idx is the index of the original mac list
         for idx, e in enumerate(mac):
             if i == e:
                 r.append(rssi[idx])
                 t.append(time[idx])
         arssi.append(r)
         atime.append(t)
-
     return fmac, arssi, atime
          
 #note: change function to takes in variable
