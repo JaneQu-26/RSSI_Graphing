@@ -26,7 +26,6 @@ def make_rssi(filename):
     for entry in detection:
         mac.append(entry['mac'])
         rssi.append(entry['rssi'])
-
         
         timestamp_str = entry['t']
 #removing the time zone (EDT) which can't be read by the operater
